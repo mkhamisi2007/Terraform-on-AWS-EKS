@@ -12,4 +12,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 aws --version
 aws configure
------------------------------------------------
+---------------------VS-Code Extention--------------------------
+https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+"Syntax highlighting and autocompletion for Terraform"
+
