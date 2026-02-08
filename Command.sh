@@ -1,3 +1,33 @@
+Terraform Workflow
+├── 1) init
+│   ├── Command: terraform init
+│   ├── Downloads providers (AWS, Azure, GCP, etc.)
+│   ├── Downloads modules
+│   ├── Initializes backend (local, S3, Terraform Cloud, etc.)
+│   └── Creates .terraform/ directory and terraform.lock.hcl
+│
+├── 2) validate
+│   ├── Command: terraform validate
+│   └── Checks syntax and internal consistency of .tf files
+│
+├── 3) plan
+│   ├── Command: terraform plan
+│   ├── Compares desired state (code) with current state
+│   ├── Shows execution plan (create / update / delete)
+│   └── Optional:
+│       └── terraform plan -out=tfplan (save the plan)
+│
+├── 4) apply
+│   ├── Command: terraform apply
+│   ├── Executes the planned changes
+│   ├── Creates, updates, or deletes resources
+│   └── If a plan file exists:
+│       └── terraform apply tfplan
+│
+└── 5) destroy
+    ├── Command: terraform destroy
+    └── Deletes all resources managed by Terraform
+--------------------------------------------------
 terraform version
 
 terraform init
