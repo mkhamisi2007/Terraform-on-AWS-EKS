@@ -12,11 +12,10 @@ terraform {
     }
   }
 }
-
 provider "aws" {
+  profile = "default"
   region = "us-east-1"
 }
-
 # (برای مثال) اگر کلاستر K8s داری، helm باید بداند به کدام کلاستر وصل شود
 provider "helm" {
   kubernetes {
@@ -25,12 +24,12 @@ provider "helm" {
 }
 -------------------------------
 resource "aws_security_group" "example" {
-  provider = aws
+  provider = aws  #-------------------> connect to aws provider
   name = "example-sg"
 }
 
 resource "helm_release" "nginx" {
-  provider = helm
+  provider = helm #-------------------> connect to Helm provider
   name       = "nginx"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "nginx"
