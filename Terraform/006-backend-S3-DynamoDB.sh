@@ -28,7 +28,7 @@ aws dynamodb create-table \
   --billing-mode PAY_PER_REQUEST \
   --region us-east-1
   
-#use 
+#use "-reconfigure" for change or update Backend
 terraform init -reconfigure 
 terraform plan
 # record will inserted in DynamoDB when start plan 
