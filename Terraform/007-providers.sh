@@ -1,4 +1,5 @@
 clouds provider , kubernetes , Active Directory , DNS , ....
+https://registry.terraform.io/browse/providers
 ---------------------------------------------
 terraform {
   required_providers {
