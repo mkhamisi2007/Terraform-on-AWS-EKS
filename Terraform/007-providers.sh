@@ -25,10 +25,12 @@ provider "helm" {
 }
 -------------------------------
 resource "aws_security_group" "example" {
+  provider = aws
   name = "example-sg"
 }
 
 resource "helm_release" "nginx" {
+  provider = helm
   name       = "nginx"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "nginx"
