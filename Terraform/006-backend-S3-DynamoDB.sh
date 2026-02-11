@@ -8,7 +8,7 @@ terraform {
   }
   # Adding Backend as S3 for Remote State Storage with State Locking
   backend "s3" {
-    bucket = "mohammad-khamisi-us-bucket" #-------> S3 bucket name
+    bucket = "mohammad-khamisi-us-bucket" #-------> S3 bucket name (shoud be exist)
     key    = "dev2/terraform.tfstate" #----> folder & file name
     region = "us-east-1"
 
