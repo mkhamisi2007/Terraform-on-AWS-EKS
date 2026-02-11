@@ -1,0 +1,17 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+provider "aws" {
+  alias  = "paris" #----> Second region with alias
+  region = "eu-west-3"
+}
+
+resource "aws_s3_bucket" "b1" {
+  bucket = "bucket-us"
+}
+
+resource "aws_s3_bucket" "b2" {
+  provider = aws.paris #----> here we select region
+  bucket   = "bucket-paris"
+}
