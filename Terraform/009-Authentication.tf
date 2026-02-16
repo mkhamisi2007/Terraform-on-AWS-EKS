@@ -15,7 +15,7 @@ cat ~/.aws/credentials
 [default]
 aws_access_key_id = XXXXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-------------------------------------------------------- Loging in spacial profile
+------------------------------------------------------- Loging with SSO
 aws sso login --profile my-sso
 ------------------------------------------------------- Assume Role
 provider "aws" {
