@@ -35,3 +35,47 @@ resource "helm_release" "nginx" {
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "nginx"
 }
+-----------------------------------------------------------------------------------------------------------------------------------AWS & Kubernetes
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+  }
+}
+
+#################################
+# AWS PROVIDER
+#################################
+
+provider "aws" {
+  region = "eu-west-3" # Paris
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0" # فقط مثال
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "terraform-ec2"
+  }
+}
+
+#################################
+# KUBERNETES PROVIDER
+#################################
+
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
+resource "kubernetes_namespace" "example" {
+  metadata {
+    name = "terraform-namespace"
+  }
+}
