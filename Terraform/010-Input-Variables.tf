@@ -27,6 +27,15 @@ variable "db_password" {
   sensitive = true
 }
 -----------------------------------------------------------
+# validate variable
+variable "instance_type" {
+  type = string
+
+  validation {
+    condition     = contains(["t2.micro","t3.micro"], var.instance_type) #----> it shoud be one of ["t2.micro","t3.micro"]
+    error_message = "Invalid instance type!"
+  }
+}
 -----------------------------------------------------------
 -----------------------------------------------------------
 -----------------------------------------------------------
