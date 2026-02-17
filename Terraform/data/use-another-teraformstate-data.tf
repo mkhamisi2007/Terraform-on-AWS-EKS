@@ -3,16 +3,7 @@ output "vpc_id" {
   value = aws_vpc.main.id
 }
 --------------------------------------Project 2 ------------------------------------import
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-
-  config = {
-    bucket = "terraform-on-aws-for-ec2"
-    key    = "dev/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
---------------------------------------Or if it is in S3 backend---------------------- import from S3
+# it is in S3 backend (shared terraform.tfstate in S3 with your application)
 data "terraform_remote_state" "vpc" {
   backend = "s3"
 
