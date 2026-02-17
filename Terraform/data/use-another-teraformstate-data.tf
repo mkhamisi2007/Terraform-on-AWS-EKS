@@ -1,3 +1,8 @@
+--------------------------------------Project 1 ------------------------------------
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
+--------------------------------------Project 2 ------------------------------------
 data "terraform_remote_state" "vpc" {
   backend = "s3"
 
@@ -7,7 +12,7 @@ data "terraform_remote_state" "vpc" {
     region = "us-east-1"
   }
 }
-------------------------------------Use it in another terraform project -------------------------------
+---------------------------------------Use it---------------------------------------
 resource "aws_instance" "web" {
   subnet_id = data.terraform_remote_state.vpc.outputs.public_subnet_id
 }
