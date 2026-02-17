@@ -46,6 +46,7 @@ terraform plan -out=tfplan
 
 # Execution
 terraform apply
+terraform apply -auto-approve
 terraform apply tfplan
 
 # Remove resources
