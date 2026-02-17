@@ -51,6 +51,7 @@ terraform apply tfplan
 
 # Remove resources
 terraform destroy
+terraform destroy -auto-approve
 terraform plan -destroy
 
 # show current status
