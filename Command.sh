@@ -31,6 +31,8 @@ Terraform Workflow
 terraform version
 
 terraform init
+#use "-reconfigure" for change or update Backend
+terraform init -reconfigure 
 
 # check validation
 terraform validate
