@@ -50,6 +50,7 @@ terraform apply tfplan
 
 # Remove resources
 terraform destroy
+terraform plan -destroy
 
 # show current status
 terraform show
