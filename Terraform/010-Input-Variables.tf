@@ -37,8 +37,22 @@ variable "instance_type" {
   }
 }
 -----------------------------------------------------------
+# list
+variable "availability_zones" {
+  description = "List of AZs"
+  type        = list(string)
+}
+---
+availability_zones = ["eu-west-3a", "eu-west-3b"]
+---
+resource "aws_subnet" "example" {
+  count             = length(var.availability_zones) #----> 2 subnet in 2 AZ
+  vpc_id            = "vpc-123456"
+  availability_zone = var.availability_zones[count.index] #----> select the AZ
+  cidr_block        = "10.0.${count.index}.0/24"
+}
 -----------------------------------------------------------
------------------------------------------------------------
+
 
 
 
