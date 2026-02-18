@@ -26,7 +26,7 @@ output "vpc_id" {
 }
 -------------------------Project 2--------------------------------
 module "network" {
-  source = "./network" #------> local file path
+  source = "./network" #------> local file path for Project 1
 }
 resource "aws_instance" "example" {
   subnet_id = module.network.vpc_id
