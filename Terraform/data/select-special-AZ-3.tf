@@ -30,35 +30,21 @@ output "output_v4_1" {
     az => detail.instance_types if length(detail.instance_types) != 0 # -----------------------> remove the AZ that have no instance type available
   }
 }
-
 output "output_v5_1" {
   value = keys({
     for az, detail in data.aws_ec2_instance_type_offerings.my_instance_type :
     az => detail.instance_types if length(detail.instance_types) != 0 #-----------------------> give us a list of az only that have the instance type available
   })
 }
-/*
-output_v5_1 = [
-      + "us-east-1a",
-      + "us-east-1b",
-      + "us-east-1c",
-      + "us-east-1d",
-      + "us-east-1f",
-    ]
-*/
-
 output "output_v6_1" {
   value = keys({
     for az, detail in data.aws_ec2_instance_type_offerings.my_instance_type :
     az => detail.instance_types if length(detail.instance_types) != 0 
   })[0] #-----------------------> get the first AZ that have the instance type available
 }
-/*
-output_v6_1 = "us-east-1a"
-*/
 ------------------------------------------------------------------------------------
 Changes to Outputs:
-  + output_v3_1 = {
+  + output_v3_1 = { #------------------------> 3
       + us-east-1a = [
           + "t3.micro",
         ]
@@ -76,3 +62,28 @@ Changes to Outputs:
           + "t3.micro",
         ]
     }
+  + output_v4_1 = { #------------------------> 4
+      + us-east-1a = [
+          + "t3.micro",
+        ]
+      + us-east-1b = [
+          + "t3.micro",
+        ]
+      + us-east-1c = [
+          + "t3.micro",
+        ]
+      + us-east-1d = [
+          + "t3.micro",
+        ]
+      + us-east-1f = [
+          + "t3.micro",
+        ]
+    }
++ output_v5_1 = [  #------------------------> 5
+      + "us-east-1a",
+      + "us-east-1b",
+      + "us-east-1c",
+      + "us-east-1d",
+      + "us-east-1f",
+    ]
++ output_v6_1 = "us-east-1a" #------------------------> 6
