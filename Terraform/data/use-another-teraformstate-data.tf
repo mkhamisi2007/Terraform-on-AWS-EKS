@@ -28,7 +28,23 @@ output "vpc_id" {
 module "network" {
   source = "./network" #------> local file path
 }
-
 resource "aws_instance" "example" {
   subnet_id = module.network.vpc_id
 }
+-------------------------------------------------------------------------Third way use existing component-----------------------------------------------------
+data "aws_vpc" "existing" {
+  filter {
+    name   = "tag:Name"
+    values = ["main-vpc"]
+  }
+}
+
+resource "aws_instance" "example" {
+  subnet_id = data.aws_vpc.existing.id
+}
+
+
+
+
+
+
