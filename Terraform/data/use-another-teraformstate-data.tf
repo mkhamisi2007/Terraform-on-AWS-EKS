@@ -1,3 +1,4 @@
+-------------------------------------------------------------------------First way Remote State-----------------------------------------------------
 --------------------------------------Project 1 ------------------------------------export
 output "vpc_id" {
   value = aws_vpc.main.id
@@ -18,3 +19,16 @@ resource "aws_instance" "web" {
   subnet_id = data.terraform_remote_state.vpc.outputs.public_subnet_id
 }
 
+-------------------------------------------------------------------------Second way and local file with module-----------------------------------------------------
+-------------------------Project 1--------------------------------
+output "vpc_id" {
+  value = aws_vpc.main.id
+}
+-------------------------Project 2--------------------------------
+module "network" {
+  source = "./network" #------> local file path
+}
+
+resource "aws_instance" "example" {
+  subnet_id = module.network.vpc_id
+}
