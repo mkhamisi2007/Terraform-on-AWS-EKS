@@ -24,6 +24,13 @@ output "output_v3_1" {
     az => detail.instance_types
   }
 }
+output "output_v4_1" {
+  value = {
+    for az, detail in data.aws_ec2_instance_type_offerings.my_instance_type :
+    az => detail.instance_types if length(detail.instance_types) != 0 # -----------------------> remove the AZ that have no instance type available
+  }
+}
+
 ------------------------------------------------------------------------------------
 Changes to Outputs:
   + output_v3_1 = {
