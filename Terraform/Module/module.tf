@@ -21,6 +21,14 @@ module "my_ec2" {
   instance_type  = "t2.micro"#---------------------------> parameter
   instance_name  = "my-first-module-ec2"#---------------------------> parameter
 }
+output "instance_id" {
+  value = module.my_ec2.instance_id  #---------------------------> output
+}
+
+output "public_ip" {
+  value = module.my_ec2.public_ip #---------------------------> output
+}
+
 ------------------------------------------------------------------------------------------------------------modules
 ----------------------------------------------------------modules/ec2/main.tf
 resource "aws_instance" "this" {
