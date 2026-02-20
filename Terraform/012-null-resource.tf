@@ -64,3 +64,48 @@ resource "null_resource" "deploy_script" {
     ]
   }
 }
+--------------------------------------------------------
+provider "aws" {
+  region = "eu-west-3"
+}
+
+resource "aws_instance" "demo" {
+  ami           = "ami-xxxxxxxx"   # Ubuntu AMI
+  instance_type = "t3.micro"
+  key_name      = "my-key"
+
+  vpc_security_group_ids = ["sg-xxxxxxxx"]
+}
+
+resource "null_resource" "provisioning" {
+
+  depends_on = [aws_instance.demo]
+
+  # -------- Provisioner 1 (file) --------
+  provisioner "file" {
+    source      = "app.sh"
+    destination = "/home/ubuntu/app.sh"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("key1.pem")
+      host        = aws_instance.demo.public_ip
+    }
+  }
+
+  # -------- Provisioner 2 (remote-exec) --------
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /home/ubuntu/app.sh",
+      "sudo /home/ubuntu/app.sh"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("key2.pem")
+      host        = aws_instance.demo.public_ip
+    }
+  }
+}
