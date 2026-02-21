@@ -4,6 +4,7 @@ resource "aws_instance" "example" {
 
   provisioner "local-exec" {
     command = "echo ${self.public_ip} >> ip.txt" #-------------> it will be printed in local system
+    working_dir = "./my-terraform-project/files"
   }
 
   # we can have multiple part
