@@ -1,4 +1,4 @@
-#it will be executed on time
+#it will be executed one time
 resource "null_resource" "example" {
 
   provisioner "local-exec" {
