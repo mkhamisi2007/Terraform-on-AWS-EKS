@@ -25,7 +25,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 resource "aws_eks_access_entry" "root_access" {
   depends_on    = [aws_eks_cluster.eks_cluster]
   cluster_name  = aws_eks_cluster.eks_cluster.name
-  principal_arn = "arn:aws:iam::277707094115:root"
+  principal_arn = "arn:aws:iam::11111111111:root"
   type          = "STANDARD"
 }
 
@@ -44,7 +44,7 @@ resource "aws_eks_access_policy_association" "root_admin" {
 resource "aws_eks_access_entry" "ali_access" {
   depends_on    = [aws_eks_cluster.eks_cluster]
   cluster_name  = aws_eks_cluster.eks_cluster.name
-  principal_arn = "arn:aws:iam::277707094115:user/ali"
+  principal_arn = "arn:aws:iam::2222222222:user/ali"
   type          = "STANDARD"
 }
 
@@ -91,3 +91,4 @@ variable "cluster_endpoint_public_access_cidrs" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
