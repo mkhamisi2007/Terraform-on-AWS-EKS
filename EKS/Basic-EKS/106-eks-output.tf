@@ -26,36 +26,9 @@ resource "null_resource" "kubeconfig" {
   }
 }
 
-#------------------- outputs for kubernetes cluster access ------------------#
-
-/*
-output "kubernetes_host" {
-  description = "EKS Cluster Endpoint"
-  value       = aws_eks_cluster.eks_cluster.endpoint
-}
-
-output "kubernetes_cluster_ca_certificate" {
-  description = "EKS Cluster CA Certificate"
-  value       = aws_eks_cluster.eks_cluster.certificate_authority[0].data
-}
-
-data "aws_eks_cluster_auth" "eks_cluster_auth" {
-  name = aws_eks_cluster.eks_cluster.name
-}
-output "kubernetes_token" {
-  description = "Authentication token for EKS"
-  value       = data.aws_eks_cluster_auth.eks_cluster_auth.token
-  sensitive   = true
-}
-
-output "cluster_name" {
-  description = "EKS Cluster Name"
-  value       = aws_eks_cluster.eks_cluster.name
-}
-*/
-
 # ----------or you can use this output to get the cluster region from the cluster resource
 output "cluster_id" {
   description = "EKS Cluster ID"
   value       = aws_eks_cluster.eks_cluster.id
 }
+
