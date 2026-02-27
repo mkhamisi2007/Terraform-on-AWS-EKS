@@ -61,6 +61,9 @@ terraform show
 terraform state list
 terraform state show aws_instance.web
 
+# it mark a resource and will be deleted and recreated in future apply
+terraform taint aws_instance.web
+
 # refresh status with existing rosorces
 terraform refresh
 
