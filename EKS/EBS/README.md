@@ -1,4 +1,4 @@
-There are 2 way for install and use it
+There are 2 way for install and use it - befor install we should make sure that IRSA is configured
 * ADD-ONS
 * Helm install
   
