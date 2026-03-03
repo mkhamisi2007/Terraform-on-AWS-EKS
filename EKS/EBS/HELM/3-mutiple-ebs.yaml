@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet # StatefulSet will used for database workloads, it will create a PVC for each replica
+metadata:
+  name: ebs-app
+spec:
+  serviceName: "ebs-service"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ebs-app
+  template:
+    metadata:
+      labels:
+        app: ebs-app
+    spec:
+      containers:
+      - name: app
+        image: busybox
+        command: ["/bin/sh"]
+        args:
+          - "-c"
+          - "echo Hello > /data/test.txt && sleep 3600"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: gp3-test
+      resources:
+        requests:
+          storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ebs-service
+spec:
+  clusterIP: None
+  selector:
+    app: ebs-app
+  ports:
+  - name: db
+    port: 5432
+    targetPort: 5432
+    
