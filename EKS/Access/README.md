@@ -2,6 +2,12 @@ there is 2 type of access
 * IAM → aws-auth ConfigMap → Kubernetes Group → RBAC (old)
 * IAM → EKS Access Entry → EKS Access Policy → RBAC (new)
 
+NEW
+<img width="914" height="434" alt="image" src="https://github.com/user-attachments/assets/0d95f0e1-8050-466e-97b9-1fb401c51c2e" />
+<img width="1004" height="560" alt="image" src="https://github.com/user-attachments/assets/476ef92f-e686-41cc-b2d3-c7b48c4c0805" />
+<img width="939" height="539" alt="image" src="https://github.com/user-attachments/assets/cebd7e88-a009-4779-8f00-096524f93fbf" />
+
+OLD
 ```cmd
 kubectl edit configmap aws-auth -n kube-syste
 ```
