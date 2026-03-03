@@ -1,0 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gp3-test
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer 
+reclaimPolicy: Delete # or Retain, depending on your needs
+allowVolumeExpansion: true # optional, allows resizing of PVCs using this StorageClass
+parameters: # optional 
+  type: gp3
+  encrypted: "true"
+  # kmsKeyId: "arn:aws:kms:eu-west-3:123456789012:key/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  fsType: ext4
+
