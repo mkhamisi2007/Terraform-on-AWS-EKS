@@ -3,16 +3,11 @@ There are 2 way for install and use it - befor install we should make sure that 
 * Helm install
 ---
 apiVersion: storage.k8s.io/v1
-
 kind: StorageClass
-
 metadata:
-
   name: gp3-test
-  
-  annotations:
-  
-    storageclass.kubernetes.io/is-default-class: "true"
+    annotations:
+      storageclass.kubernetes.io/is-default-class: "true"
     
 provisioner: ebs.csi.aws.com
 
