@@ -5,8 +5,8 @@ kubectl edit configmap aws-auth -n kube-syste
 apiVersion: v1
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::XXXXXXXXXXXXX:role/eks-nodegroup-role
-      groups:
+-    - rolearn: arn:aws:iam::XXXXXXXXXXXXX:role/eks-nodegroup-role
+-      groups:
       - system:bootstrappers
       - system:nodes
       username: system:node:{{EC2PrivateDNSName}}
