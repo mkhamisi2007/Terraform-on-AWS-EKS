@@ -1,15 +1,15 @@
 ```cmd
 kubectl edit configmap aws-auth -n kube-syste
 ```
-```yaml
+```diff
 apiVersion: v1
-data:**
-  mapRoles: |
-    - rolearn: arn:aws:iam::XXXXXXXXXXXXX:role/eks-nodegroup-role
-      groups:
-      - system:bootstrappers
-      - system:nodes
-      username: system:node:{{EC2PrivateDNSName}}**
+data:
++  mapRoles: |
++    - rolearn: arn:aws:iam::XXXXXXXXXXXXX:role/eks-nodegroup-role
++      groups:
++      - system:bootstrappers
++      - system:nodes
++      username: system:node:{{EC2PrivateDNSName}}
 kind: ConfigMap
 metadata:
   creationTimestamp: "2026-03-03T14:31:53Z"
