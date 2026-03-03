@@ -3,19 +3,33 @@ There are 2 way for install and use it - befor install we should make sure that 
 * Helm install
 ---
 apiVersion: storage.k8s.io/v1
+
 kind: StorageClass
+
 metadata:
+
   name: gp3-test
+  
   annotations:
+  
     storageclass.kubernetes.io/is-default-class: "true"
+    
 provisioner: ebs.csi.aws.com
+
 allowVolumeExpansion: true # optional, allows resizing of PVCs using this StorageClass
+
 volumeBindingMode: WaitForFirstConsumer 
+
 reclaimPolicy: Delete # or Retain, depending on your needs
+
 parameters: # optional 
+
   type: gp3
+  
   encrypted: "true"
+  
   # kmsKeyId: "arn:aws:kms:eu-west-3:123456789012:key/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  
   fsType: ext4
 ---
   
