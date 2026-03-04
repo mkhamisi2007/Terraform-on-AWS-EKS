@@ -1,5 +1,6 @@
 {
-  "TopicArn": "arn:aws:sns:us-east-1:277707094115:my-test-sns",
+  "TopicArn": "arn:aws:sns:us-east-1:*********:my-test-sns",
   "Subject": "Terraform Finished",
   "Message": "Terraform apply completed successfully"
+
 }
