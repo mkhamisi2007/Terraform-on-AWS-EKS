@@ -4,8 +4,9 @@
 
 I Put SNS notification in my configuration and i used a Time delay for fix the problem
 
-
-k get cm aws-auth -n kube-system -o yaml
+```sh
+kubectl get cm aws-auth -n kube-system -o yaml
+```
 ```yaml
 apiVersion: v1
 data:
