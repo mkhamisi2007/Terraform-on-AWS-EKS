@@ -2,7 +2,7 @@ in this code we create a group and add a user to it that cat assume role and acc
 
 the role can access out EKS cluster
 
-for access the cluster the users must be 
+for access the cluster the users must be:
 * added to the group
 * asuum role(eks-admin-role) when they want access the cluster
 
