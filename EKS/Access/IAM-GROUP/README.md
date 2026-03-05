@@ -2,6 +2,10 @@ in this code we create a group and add a user to it that cat assume role and acc
 
 the role can access out EKS cluster
 
+for access the cluster the users must be 
+* added to the group
+* asuum role(eks-admin-role) when they want access the cluster
+
 <img width="853" height="447" alt="image" src="https://github.com/user-attachments/assets/ac4af736-d11d-43bc-8042-16fb9dab957c" />
 
 
