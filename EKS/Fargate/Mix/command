@@ -1,0 +1,15 @@
+$env:KUBECONFIG = "$PWD\kubeconfig_my_eks_cluster"
+set-alias k kubectl
+k get nodes
+-----test----------------------------------
+kubectl run nginx --image=nginx --port=80
+kubectl port-forward pod/nginx 8080:80
+http://localhost:8080
+
+----------------------------------------------------------
+aws eks update-cluster-config --name my_eks_cluster --region us-east-1 --access-config authenticationMode=API_AND_CONFIG_MAP
+---------------------------------------
+kubectl apply -f alb-test.yaml
+kubectl get ingress
+--------
+aws eks list-fargate-profiles --cluster my_eks_cluster

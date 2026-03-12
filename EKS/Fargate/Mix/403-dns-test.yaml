@@ -1,0 +1,158 @@
+#----------------------------------- first pods & serviec-------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app1
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+        - name: app1
+          image: nginxdemos/hello:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-service
+spec:
+  selector:
+    app: app1
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+#----------------------------------- second pods & serviec-------------------------------------
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+        - name: app2
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2-service
+spec:
+  selector:
+    app: app2
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+#----------------------------------- third pods & serviec-------------------------------------
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app3
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app3
+  template:
+    metadata:
+      labels:
+        app: app3
+    spec:
+      containers:
+        - name: app3
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          command: ["/bin/sh","-c"]
+          args:
+            - echo "Hello from app3" > /usr/share/nginx/html/index.html && nginx -g 'daemon off;';
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app3-service
+spec:
+  selector:
+    app: app3
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+#----------------------------------- ingress for app1 & app2 -------------------------------------
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apps-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing #--> or internal ALB
+    alb.ingress.kubernetes.io/target-type: ip #---> or instance(for node port and send trafic to nodes)
+    alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=300
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    # we can comment the line below becuase the SSLDiscovery wil find it autommaticlly
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:277707094115:certificate/7ea361a7-7126-4b01-bf67-872d9ac03654
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    #DNS Record
+    external-dns.alpha.kubernetes.io/hostname: default.m-khamisi.com #---> it will registed in DNS record with same ALB
+    #we can make multiple record for pot the same ALB
+    #external-dns.alpha.kubernetes.io/hostname: nginx01.m-khamisi.com , nginx02.m-khamisi.com
+    #we can share ingress between multiple ingress with one name(my-group)- finally we will create just 1 ALB
+    alb.ingress.kubernetes.io/group.name: my-group
+    # health check
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port # or 80
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+spec:
+  ingressClassName: my-aws-ingress-class
+  defaultBackend:
+    service:
+      name: app3-service
+      port:
+        number: 80     
+  rules:
+    - host: app1.m-khamisi.com #---> it will registed in DNS record with same ALB
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app1-service
+                port:
+                  number: 80
+    - host: app2.m-khamisi.com #---> it will registed in DNS record with same ALB
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app2-service
+                port:
+                  number: 80
