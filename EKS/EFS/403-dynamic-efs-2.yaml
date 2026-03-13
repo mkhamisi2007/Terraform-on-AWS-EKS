@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-dynamic-pvc-second
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc-dynamic # refer to storage class resource
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: efs-dynamic-nginx-second
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: efs-dynamic-nginx-second
+  template:
+    metadata:
+      labels:
+        app: efs-dynamic-nginx-second
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - name: efs-volume
+          mountPath: /data
+      volumes:
+      - name: efs-volume
+        persistentVolumeClaim:
+          claimName: efs-dynamic-pvc-second
