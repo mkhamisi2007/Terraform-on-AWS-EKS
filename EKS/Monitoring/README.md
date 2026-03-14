@@ -1,7 +1,9 @@
 EKS Cluster Control Plane Logs :
 * /aws/eks/<CLUSTER_NAME>/cluster
+
 Cloud Watch Log :
 * /aws/containerinsights/<CLUSTER_NAME>/performance
+
 Fluent Bit Logs :
 * /aws/containerinsights/<CLUSTER_NAME>/application
 * /aws/containerinsights/<CLUSTER_NAME>/dataplane
